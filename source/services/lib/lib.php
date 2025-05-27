@@ -6,7 +6,7 @@
  * @subpackage
  * @copyright  Copyright (c) 2013-endless AksiIDE
  * @license
- * @version    3.0.35
+ * @version    3.0.36
  * @link       http://www.aksiide.com
  * @since
  * @history
@@ -83,7 +83,7 @@ $Phone = @$userInfo[1];
 
 function RichOutput($ACode, $AMessage, $AAction = null, $AReaction = '', $ASuffix = ''){
   global $RequestContentAsJson;
-  if (@$RequestContentAsJson["mcp"] == true){
+  if ((@$RequestContentAsJson["mcp"] == true) || (@$_GET['mcp'] == true)){
     die($AMessage . "\n" . $ASuffix);
   }
   @header("Content-type:application/json");
@@ -128,7 +128,7 @@ function RichOutput($ACode, $AMessage, $AAction = null, $AReaction = '', $ASuffi
 
 function Output( $ACode, $AMessage, $AField = 'text', $AAction = null, $AActionType = 'button', $ASuffix = '', $AThumbail = '', $AButtonTitle = 'Tampilkan', $AAutoPrune = false, $AWeight = 0, $AReaction = ''){
   global $RequestContentAsJson;
-  if (@$RequestContentAsJson["mcp"] == true){
+  if ((@$RequestContentAsJson["mcp"] == true) || (@$_GET['mcp'] == true)){
     die($AMessage . "\n" . $ASuffix);
   }
     @header("Content-type:application/json");
