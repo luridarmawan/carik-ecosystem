@@ -6,7 +6,7 @@
  * @subpackage
  * @copyright  Copyright (c) 2013-endless AksiIDE
  * @license
- * @version    3.0.34
+ * @version    3.0.35
  * @link       http://www.aksiide.com
  * @since
  * @history
@@ -32,6 +32,7 @@
  *   - RemoveTokenParameter
  *   - IsURL
  *   - IsIPAddress
+ *   - MCP Enable on RichOutput
  */
 
 const OK = 'OK';
@@ -81,6 +82,10 @@ $userInfo = @explode('-', $UserId);
 $Phone = @$userInfo[1];
 
 function RichOutput($ACode, $AMessage, $AAction = null, $AReaction = '', $ASuffix = ''){
+  global $RequestContentAsJson;
+  if (@$RequestContentAsJson["mcp"] == true){
+    die($AMessage . "\n" . $ASuffix);
+  }
   @header("Content-type:application/json");
   $array['code'] = $ACode;
   $array['text'] = $AMessage;
@@ -122,6 +127,10 @@ function RichOutput($ACode, $AMessage, $AAction = null, $AReaction = '', $ASuffi
 }
 
 function Output( $ACode, $AMessage, $AField = 'text', $AAction = null, $AActionType = 'button', $ASuffix = '', $AThumbail = '', $AButtonTitle = 'Tampilkan', $AAutoPrune = false, $AWeight = 0, $AReaction = ''){
+  global $RequestContentAsJson;
+  if (@$RequestContentAsJson["mcp"] == true){
+    die($AMessage . "\n" . $ASuffix);
+  }
     @header("Content-type:application/json");
     $AMessage = str_replace("\r\n", '\n', $AMessage);
     $AMessage = str_replace("\r", '\n', $AMessage);
@@ -220,6 +229,7 @@ function IsIPAddress($ip){
       return 'IPv6';
   }
 
+  // Jika tidak cocok dengan format IP apapun
   return false;
 }
 
