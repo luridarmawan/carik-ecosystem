@@ -6,7 +6,7 @@
  * @subpackage
  * @copyright  Copyright (c) 2013-endless AksiIDE
  * @license
- * @version    3.0.36
+ * @version    3.0.37
  * @link       http://www.aksiide.com
  * @since
  * @history
@@ -33,6 +33,7 @@
  *   - IsURL
  *   - IsIPAddress
  *   - MCP Enable on RichOutput
+ *   - MCP SSE
  */
 
 const OK = 'OK';
@@ -81,9 +82,24 @@ if (empty($ClientId)) $UserId = @$RequestContentAsJson['data']['client_id'];
 $userInfo = @explode('-', $UserId);
 $Phone = @$userInfo[1];
 
+function SSEInit(){
+  // Wajib: Header SSE
+  header('Content-Type: text/event-stream');
+  header('Cache-Control: no-cache');
+  header('Connection: keep-alive');
+  header('Access-Control-Allow-Origin: *');
+
+  // Disable buffering (penting untuk nginx/apache/php-fpm)
+  @ini_set('output_buffering', 'off');
+  @ini_set('zlib.output_compression', false);
+  @ob_implicit_flush(true);
+  @ob_end_flush();
+}
+
 function RichOutput($ACode, $AMessage, $AAction = null, $AReaction = '', $ASuffix = ''){
   global $RequestContentAsJson;
   if ((@$RequestContentAsJson["mcp"] == true) || (@$_GET['mcp'] == true)){
+    SSEInit();
     die($AMessage . "\n" . $ASuffix);
   }
   @header("Content-type:application/json");
