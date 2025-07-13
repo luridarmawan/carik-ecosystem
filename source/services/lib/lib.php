@@ -6,7 +6,7 @@
  * @subpackage
  * @copyright  Copyright (c) 2013-endless AksiIDE
  * @license
- * @version    3.0.37
+ * @version    3.0.38
  * @link       http://www.aksiide.com
  * @since
  * @history
@@ -34,6 +34,7 @@
  *   - IsIPAddress
  *   - MCP Enable on RichOutput
  *   - MCP SSE
+ *   - Enable CORS
  */
 
 const OK = 'OK';
@@ -94,6 +95,13 @@ function SSEInit(){
   @ini_set('zlib.output_compression', false);
   @ob_implicit_flush(true);
   @ob_end_flush();
+}
+
+function EnableCORS(){
+  header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Credentials: true ");
+  header("Access-Control-Allow-Methods: OPTIONS, GET, POST");
+  header("Access-Control-Allow-Headers: Content-Type, Depth, User-Agent, X-File-Size, X-Requested-With, If-Modified-Since, X-File-Name, Cache-Control");
 }
 
 function RichOutput($ACode, $AMessage, $AAction = null, $AReaction = '', $ASuffix = ''){

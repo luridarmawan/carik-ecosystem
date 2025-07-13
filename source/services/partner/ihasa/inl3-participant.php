@@ -6,11 +6,12 @@
  *   curl "http://ecosystem.carik.test/services/partner/ihasa/inl3-participant/"
  *
  */
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
 //error_reporting(E_NONE);
 require_once "../../lib/lib.php";
 require_once "../../config.php";
+EnableCORS();
 
 $url = $Config['packages']['partner']['ihasa']['inl3']['participant'];
 
