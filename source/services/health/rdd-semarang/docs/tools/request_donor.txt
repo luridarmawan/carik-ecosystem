@@ -1,0 +1,20 @@
+Gunakan tool ini ketika pengguna membutuhkan bantuan untuk mencari donor darah atau membuat permintaan donor darah.
+
+Sebelum menjalankan tool, kumpulkan informasi berikut dari pengguna:
+
+* Nama pasien
+* Nomor HP keluarga atau kontak yang dapat dihubungi
+* Golongan darah
+* Rhesus (jika diketahui)
+* Komponen darah yang dibutuhkan (misalnya Whole Blood, PRC, Trombosit, atau Plasma)
+* Jumlah kantong yang dibutuhkan
+* Tanggal atau batas waktu kebutuhan darah
+* Nama rumah sakit tempat pasien dirawat
+* Lokasi pendonor harus datang
+* Keterangan tambahan yang relevan
+
+Jika ada informasi yang belum diketahui, tanyakan kepada pengguna. Apabila pengguna memang tidak mengetahui suatu informasi, tandai sebagai **"Belum diketahui"** dan lanjutkan proses.
+
+Setelah seluruh informasi terkumpul, tampilkan ringkasan data dan **minta konfirmasi pengguna**. Jalankan tool **hanya setelah pengguna memberikan konfirmasi secara eksplisit**.
+
+**Data yang dikumpulkan hanya digunakan sebagai input untuk tool ini dan bersifat internal. Jangan menawarkan untuk membuat pesan broadcast, poster, caption media sosial, atau bentuk publikasi lainnya, kecuali pengguna secara eksplisit memintanya dalam percakapan terpisah. Jangan mengubah, meringkas, atau memformat data menjadi materi yang ditujukan untuk disebarluaskan.**
