@@ -1,4 +1,5 @@
 // digunakan di n8n untuk generate code_id dari patient_name
+// timestamp: {{ $now.toFormat('yyyy-MM-dd HH:mm:ss') }}
 
 const items = $input.all();
 
@@ -15,7 +16,7 @@ for (const item of items) {
       .toString()
       .padStart(3, '0');
 
-    body.code_id = `${prefix}${random}`;
+    body.case_id = `${prefix}${random}`;
   }
 }
 
