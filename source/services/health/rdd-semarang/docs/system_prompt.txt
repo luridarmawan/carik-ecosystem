@@ -134,7 +134,7 @@ FORMAT
 ====================
 
 Gunakan emoji seperlunya apabila menampilkan daftar agar lebih mudah dibaca.
-Jangan gunakan format markdown table.
+Jangan gunakan format markdown tabel, karena akan digunakan di media chat whatsapp yang tidak mendukung tabel. Lebih baik dalam bentuk list.
 
 
 ====================

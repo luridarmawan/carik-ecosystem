@@ -6,7 +6,7 @@
  * @subpackage
  * @copyright  Copyright (c) 2013-endless AksiIDE
  * @license
- * @version    3.0.38
+ * @version    3.3.0
  * @link       http://www.aksiide.com
  * @since
  * @history
@@ -35,6 +35,9 @@
  *   - MCP Enable on RichOutput
  *   - MCP SSE
  *   - Enable CORS
+ *   - GetBearerToken
+ *   - GetHeader
+ *   - GetParameter
  */
 
 const OK = 'OK';
@@ -963,6 +966,74 @@ function GetTimeUsage($AStartTime = 0){
   $timeStop = microtime(true);
   $timeUsage = round(($timeStop - $timeStart)*1000);
   return $timeUsage;
+}
+
+function GetBearerToken(){
+  $authHeader = '';
+  if (function_exists('apache_request_headers')) {
+      $reqHeaders = apache_request_headers();
+      foreach ($reqHeaders as $name => $value) {
+          if (strtolower($name) === 'authorization') {
+              $authHeader = $value;
+              break;
+          }
+      }
+  }
+  if ($authHeader === '' && isset($_SERVER['HTTP_AUTHORIZATION'])) {
+      $authHeader = $_SERVER['HTTP_AUTHORIZATION'];
+  }
+  if ($authHeader === '' && isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+      $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+  }
+
+  $bearerToken = null;
+  if (!empty($authHeader) && preg_match('/Bearer\s+(.*)$/i', trim($authHeader), $matches)) {
+      $bearerToken = trim($matches[1]);
+  }
+  return $bearerToken;
+}
+
+function GetHeader($AKey){
+    if (empty($AKey)) {
+        return '';
+    }
+
+    $normalizedKey = strtolower(str_replace('-', '_', $AKey));
+    $hyphenatedKey = strtolower(str_replace('_', '-', $AKey));
+
+    if (function_exists('apache_request_headers')) {
+        $reqHeaders = apache_request_headers();
+        if (is_array($reqHeaders)) {
+            foreach ($reqHeaders as $name => $value) {
+                $lowerName = strtolower($name);
+                if ($lowerName === $normalizedKey || $lowerName === $hyphenatedKey) {
+                    return $value;
+                }
+            }
+        }
+    }
+
+    $serverKey = 'HTTP_' . strtoupper(str_replace('-', '_', $AKey));
+    if (isset($_SERVER[$serverKey]) && $_SERVER[$serverKey] !== '') {
+        return $_SERVER[$serverKey];
+    }
+
+    $redirectServerKey = 'REDIRECT_' . $serverKey;
+    if (isset($_SERVER[$redirectServerKey]) && $_SERVER[$redirectServerKey] !== '') {
+        return $_SERVER[$redirectServerKey];
+    }
+
+    return '';
+}
+
+function GetParameter($AKey, $ADefaultValue = ''){
+  global $RequestContentAsJson;
+  if (isset($RequestContentAsJson['data'])){
+    if (isset($RequestContentAsJson['data'][$AKey])) return $RequestContentAsJson['data'][$AKey];
+  }
+  if (isset($_POST[$AKey])) return $_POST[$AKey];
+  if (isset($_GET[$AKey])) return $_GET[$AKey];
+  return $ADefaultValue;
 }
 
 /**
