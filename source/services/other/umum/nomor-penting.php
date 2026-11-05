@@ -19,6 +19,9 @@ $Text = "Nomor telepon darurat yg perlu anda ketahui:
 - PLN: 123
 
 nomor-nomor lain yang perlu juga dicatat:
+- BPJS 165
+- Kemenkes 1500567
+- OMBUDSMAN 137
 - KOMNAS HAM: 021-3925230
 - KOMNAS Perempuan: 021-3903963
 - KPAI: 021-319015";
